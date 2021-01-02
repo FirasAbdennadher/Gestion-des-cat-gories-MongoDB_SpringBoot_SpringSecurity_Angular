@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Gestion des catégories</div>
+  <div class="panel-body">
+    <div>
+      <button class="btn btn-success" (click)="onAddCategory()">Ajouter</button>
+    </div>
+    <div *ngIf="modes=='new-cat'" class="col-md-6">
+      <form #f="ngForm" (ngSubmit)="onSaveCategory(f.value);">
+        <div class="form-group">
+          <label class="control-label">name</label>
+          <input type="text" name="name" ngModel class="form-control"  />
+        </div>
+        <button class="btn-dark">Ajouter</button>
+
+      </form>
+    </div>
+
+    <div *ngIf="modes=='edit-cat'" class="col-md-6">
+      <form #f="ngForm" (ngSubmit)="onUpdateCategory(f.value);">
+        <div class="form-group">
+          <label class="control-label">name</label>
+          <input type="text" name="name" ngModel class="form-control" [(ngModel)]="currentCategory.name" />
+        </div>
+        <button class="btn-dark">Modifier</button>
+
+      </form>
+    </div>
+
+    <div *ngIf="modes=='list'">
+    <table class="table" *ngIf="categories">
+      <tr>
+        <th>Name</th>
+      </tr>
+      <tr *ngFor="let cc of categories._embedded.categories">
+        <td>{{cc.name}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="onDeleteCategory(cc)">
+            <span class="glyphicon glyphicon-remove">X</span></button>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="onEditCategory(cc)">
+            <span class="glyphicon glyphicon-remove">Edit</span></button>
+        </td>
+      </tr>
+    </table>
+    </div>
+
+  </div>
+</div>
